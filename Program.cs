@@ -24,18 +24,18 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Configure HTTP pipeline
-if (app.Environment.IsDevelopment() || true)
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "VILEON NAILS API v1");
-        c.RoutePrefix = "swagger";
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "VILEON NAILS API v1");
+    c.RoutePrefix = "swagger";
+});
 
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.MapControllers();
+
+// Redirect root URL / to /swagger
+app.MapGet("/", () => Results.Redirect("/swagger"));
 
 app.Run();
