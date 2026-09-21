@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: vileon-nails-api
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
